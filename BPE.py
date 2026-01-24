@@ -18,4 +18,5 @@ trainer  = BpeTrainer(vocab_size=5000,min_frequency=2,special_tokens=["<PAD>", "
 
 tokenizer.train([],trainer)
 
+print("Hello This is GitHub examples")
 
