@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Copilot‑Style Chat with Slim Sidebar</title>
+  <style>
+    body { margin:0; font-family:"Segoe UI",Arial,sans-serif; background:#f3f3f3; height:100vh; display:flex; }
+    #root { width:100%; height:100%; }
+    .app-wrapper { display:flex; height:100%; width:100%; }
+    .sidebar { width:180px; background:#1f1f1f; color:#fff; display:flex; flex-direction:column; padding:20px; }
+    .sidebar h2 { margin:0 0 20px; font-size:18px; font-weight:600; }
+    .sidebar ul { list-style:none; padding:0; margin:0; flex:1; }
+    .sidebar li { padding:10px 0; cursor:pointer; font-size:15px; }
+    .sidebar li:hover { color:#0078d7; }
+    .chat-wrapper { display:flex; flex-direction:column; flex:1; background:#fff; border-left:1px solid #ddd; }
+    .chat-messages { flex:1; padding:30px; overflow-y:auto; background:#fafafa; }
+    .message { margin:16px 0; max-width:70%; padding:14px 18px; border-radius:18px; line-height:1.5; font-size:16px; box-shadow:0 1px 3px rgba(0,0,0,0.08); white-space:pre-wrap; }
+    .message.user { background:#0078d7; color:white; margin-left:auto; }
+    .message.bot { background:#ffffff; color:#333; margin-right:auto; }
+    .chat-input { display:flex; padding:16px; border-top:1px solid #ddd; background:#fff; }
+    .chat-input input { flex:1; padding:12px 16px; border:1px solid #ccc; border-radius:24px; font-size:16px; outline:none; }
+    .chat-input button { margin-left:12px; padding:12px 20px; background:#0078d7; color:white; border:none; border-radius:24px; cursor:pointer; font-size:16px; }
+    .chat-input button:hover { background:#005fa3; }
+    /* Three-dot loader */
+    .loader span {
+      font-size:20px;
+      animation: blink 1.4s infinite both;
+    }
+    .loader span:nth-child(2) { animation-delay: 0.2s; }
+    .loader span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <!-- React + Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const CopilotChat = () => {
+      const [messages, setMessages] = useState([{ sender:"bot", text:"As-salamu alaykum 🧞‍♂️, I’m Aladin—ask me anything!" }]);
+      const [input, setInput] = useState("");
+      const [loading, setLoading] = useState(false);
+      const messagesEndRef = useRef(null);
+
+      useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior:"smooth" }); }, [messages]);
+
+      const streamBotReply = (fullText) => {
+        let index = 0;
+        const botMsg = { sender:"bot", text:"" };
+        setMessages(prev => [...prev, botMsg]);
+        const interval = setInterval(() => {
+          index++;
+          setMessages(prev => {
+            const updated = [...prev];
+            updated[updated.length-1] = { sender:"bot", text: fullText.slice(0,index) };
+            return updated;
+          });
+          if (index >= fullText.length) clearInterval(interval);
+        }, 40);
+      };
+
+      const sendMessage = () => {
+        if (!input.trim()) return;
+        const userMsg = { sender:"user", text:input };
+        setMessages(prev => [...prev, userMsg]);
+        const userText = input;
+        setInput("");
+        setLoading(true);
+
+        fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userText })
+        })
+        .then(res => res.json())
+        .then(data => {
+          setLoading(false);
+          streamBotReply(data.reply);
+        })
+        .catch(err => {
+          setLoading(false);
+          streamBotReply("⚠️ Error contacting backend");
+        });
+      };
+
+      const handleKeyPress = (e) => { if (e.key === "Enter") sendMessage(); };
+
+      return (
+        <div className="app-wrapper">
+          <div className="sidebar">
+            <h2>🧞‍♂️ Aladin</h2>
+            <ul>
+              <li>New Chat</li>
+              <li>History</li>
+              <li>Settings</li>
+              <li>Help</li>
+            </ul>
+          </div>
+          <div className="chat-wrapper">
+            <div className="chat-messages">
+              {messages.map((msg,i)=><div key={i} className={`message ${msg.sender}`}>{msg.text}</div>)}
+              {loading && (
+                <div className="message bot">
+                  <div className="loader"><span>.</span><span>.</span><span>.</span></div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+            <div className="chat-input">
+              <input type="text" placeholder="Type your message..." value={input} onChange={(e)=>setInput(e.target.value)} onKeyPress={handleKeyPress}/>
+              <button onClick={sendMessage}>Send</button>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<CopilotChat />);
+  </script>
+</body>
+</html>
