@@ -16,7 +16,17 @@ tokenizer.pre_tokenizer = Whitespace()
 
 trainer  = BpeTrainer(vocab_size=5000,min_frequency=2,special_tokens=["<PAD>", "<UNK>", "<CLS>", "<SEP>"])
 
-tokenizer.train([],trainer)
+from pdfminer.high_level import (extract_text)
+pdf_path = "/Users/ahad/India - Wikipedia.pdf"
+text = extract_text(pdf_path) # Save to a .txt file
+with open("india_wikipedia.txt", "w", encoding="utf-8") as f: f.write(text)
 
-print("Hello This is GitHub examples")
+tokenizer.train(["india_wikipedia.txt"],trainer)
+
+tokenizer.save("wiki-tokenizer.json")
+
+tokenizer = Tokenizer.from_file("wiki-tokenizer.json")
+output = tokenizer.encode("Tokenization is powerful!")
+print(output.tokens)
+
 
