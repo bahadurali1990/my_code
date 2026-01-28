@@ -1,7 +1,12 @@
+# using filter function
+
 tup = [(1,2,3),(),(1,2),(),(1,2,3,4)]
 
-output=  list(map(lambda x : x if len(x)>0 else None, tup))
+output=  list(filter(lambda x : len(x)>0, tup))
 
 print(tup)
 print(output)
+
+
+
 
