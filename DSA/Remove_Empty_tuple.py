@@ -177,12 +177,14 @@ print(my_dict)
 
 ##--------------------------------------Using zip functions-------------------------------------------------
 
-a = ("name","age","salary")
+"""a = ("name","age","salary")
 b = ("CitiusTech",34,1200)
 
 dict1 = dict(zip(a,b))
 
 print(dict1)
+"""
+
 
 
 
