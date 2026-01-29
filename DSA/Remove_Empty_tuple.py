@@ -146,6 +146,36 @@ for key , val in dict2.items():
 print(dict3)"""
 
 
+# key values pairs into flats dictionary
+
+"""input = [("name","CitiusTech"),("location","Hydrabad"),("Salary",1200)]
+
+dict1 = {}
+
+for tup in input:
+    key , val = tup
+    dict1[key]=val
+
+print(dict1)
+
+
+input = [("name","CitiusTech"),("location","Hydrabad"),("Salary",1200)]
+
+dict2 = dict(input)
+
+print(dict2)
+"""
+
+##------------------------------------------ Using dictionary comprehension ------------------------------
+
+input = [("name","Citiustech"),("age",100),("location","Hydrabad"),("Salary",12000)]
+
+my_dict = {key:val for key,val in input}
+
+print(my_dict)
+
+
+
 
 
 
