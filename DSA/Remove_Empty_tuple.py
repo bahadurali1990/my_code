@@ -96,7 +96,7 @@ sorted_dict = sorted(d,key=itemgetter('age','name'))
 print(sorted_dict)
 """
 
-d =  [
+"""d =  [
       {"name": "Nandini", "age": 20},
       {"name": "Manjeet", "age": 20},
       {"name": "Nikhil", "age": 19}
@@ -104,6 +104,18 @@ d =  [
 sorted_dict = sorted(d,key=itemgetter('age'),reverse=True)
 
 print(sorted_dict)
+"""
+"""d =  [
+      {"name": "Nandini", "age": 20},
+      {"name": "Manjeet", "age": 20},
+      {"name": "Nikhil", "age": 19}
+     ]
+sorted_dict1 = sorted(d,key=lambda key : key['age'])
+
+print(sorted_dict1)
+"""
+
+
 
 
 
