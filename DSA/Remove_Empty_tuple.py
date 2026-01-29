@@ -168,11 +168,23 @@ print(dict2)
 
 ##------------------------------------------ Using dictionary comprehension ------------------------------
 
-input = [("name","Citiustech"),("age",100),("location","Hydrabad"),("Salary",12000)]
+"""input = [("name","Citiustech"),("age",100),("location","Hydrabad"),("Salary",12000)]
 
 my_dict = {key:val for key,val in input}
 
 print(my_dict)
+"""
+
+##--------------------------------------Using zip functions-------------------------------------------------
+
+a = ("name","age","salary")
+b = ("CitiusTech",34,1200)
+
+dict1 = dict(zip(a,b))
+
+print(dict1)
+
+
 
 
 
