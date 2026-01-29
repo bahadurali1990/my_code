@@ -115,6 +115,44 @@ sorted_dict1 = sorted(d,key=lambda key : key['age'])
 print(sorted_dict1)
 """
 
+"""d =   [
+          {"name": "Nandini", "age": 20},
+          {"name": "Manjeet", "age": 20},
+          {"name": "Nikhil", "age": 19}
+      ]
+
+sorted_dict1 = sorted(d,key= lambda key : (key['name'] ,key['age']))
+
+print(sorted_dict1)
+"""
+
+"""dict1 = {"a":1,"b":2}
+dict2 = {"c":2,"d":3}
+
+dict1.update(dict2)
+
+print(dict1)
+"""
+"""
+dict1 = {"a":1,"b":2,"c":3,"d":4}
+dict2 = {"d":5,"e":6,"f":7,"g":8}
+
+dict3 = dict1.copy()
+
+for key , val in dict2.items():
+
+    dict3[key]=val
+
+print(dict3)"""
+
+
+
+
+
+
+
+
+
 
 
 
