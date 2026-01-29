@@ -30,6 +30,42 @@ total_sum = sum(dict1.values())
 print(total_sum)
 """
 
+# using list comprehension
 
+"""dict1 = {"a":10,"b":20,"c":30,"d":40,"e":50}
+
+total_sum = sum([value for value in dict1.values()])
+
+print(total_sum)
+"""
+
+"""dict1 = {"a":10,"b":20,"c":30,"d":40,"e":50}
+sum = 0
+for val in dict1.values():
+    sum=sum+val
+print(sum)
+"""
+
+# with the help of map and lambda
+
+"""dict1 = {"a":10,"b":20,"c":30,"d":40,"e":50}
+
+output = sum(list(map(lambda key : dict1[key],dict1)))
+
+print(output)"""
+
+"""dict1 = {"a":10,"b":20,"c":30,"d":40,"e":50}
+
+final_output = dict1.pop("a")
+
+print(final_output)
+"""
+
+dict1 = {"a":1,"b":2,"c":3,"d":4,"e":5}
+
+dict2 = dict1.popitem()
+
+print(dict2)
+print(dict1)
 
 
