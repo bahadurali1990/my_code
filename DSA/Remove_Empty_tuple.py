@@ -81,6 +81,21 @@ print(f"sorted of list of dict {sorted(d,key=itemgetter('age'))}")
 """
 
 
+# sorting by multiples keys
+
+from operator import itemgetter
+
+d =  [
+      {"name": "Nandini", "age": 20},
+      {"name": "Manjeet", "age": 20},
+      {"name": "Nikhil", "age": 19}
+     ]
+
+sorted_dict = sorted(d,key=itemgetter('age','name'))
+print(sorted_dict)
+
+
+
 
 
 
