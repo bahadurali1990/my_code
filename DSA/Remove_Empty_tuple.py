@@ -61,11 +61,30 @@ final_output = dict1.pop("a")
 print(final_output)
 """
 
-dict1 = {"a":1,"b":2,"c":3,"d":4,"e":5}
+"""dict1 = {"a":1,"b":2,"c":3,"d":4,"e":5}
 
 dict2 = dict1.popitem()
 
 print(dict2)
 print(dict1)
+"""
+
+"""from operator import itemgetter
+
+d = [
+      {"name": "Nandini", "age": 20},
+      {"name": "Manjeet", "age": 20},
+      {"name": "Nikhil", "age": 19}
+    ]
+
+print(f"sorted of list of dict {sorted(d,key=itemgetter('age'))}")
+"""
+
+
+
+
+
+
+
 
 
