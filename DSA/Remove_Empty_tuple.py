@@ -7,6 +7,7 @@ output=  list(filter(lambda x : len(x)>0, tup))
 print(tup)
 print(output)
 """
+from operator import itemgetter
 
 # using list comprehension
 
@@ -83,7 +84,7 @@ print(f"sorted of list of dict {sorted(d,key=itemgetter('age'))}")
 
 # sorting by multiples keys
 
-from operator import itemgetter
+"""from operator import itemgetter
 
 d =  [
       {"name": "Nandini", "age": 20},
@@ -93,6 +94,24 @@ d =  [
 
 sorted_dict = sorted(d,key=itemgetter('age','name'))
 print(sorted_dict)
+"""
+
+d =  [
+      {"name": "Nandini", "age": 20},
+      {"name": "Manjeet", "age": 20},
+      {"name": "Nikhil", "age": 19}
+     ]
+sorted_dict = sorted(d,key=itemgetter('age'),reverse=True)
+
+print(sorted_dict)
+
+
+
+
+
+
+
+
 
 
 
