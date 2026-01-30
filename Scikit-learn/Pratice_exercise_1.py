@@ -46,6 +46,16 @@ tree2 = DecisionTreeRegressor(max_depth=5)
 tree1.fit(X,y)
 tree2.fit(X,y)
 
+X_test = np.arange(0,5.0,0.01)[:,np.newaxis]
+
+y_1 = tree1.predict(X_test)
+y_2 = tree2.predict(X_test)
+
+
+
+
+
+
 
 
 

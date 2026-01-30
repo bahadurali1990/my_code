@@ -185,9 +185,55 @@ dict1 = dict(zip(a,b))
 print(dict1)
 """
 
+##--------------------------------------Check the string is Binary or not --------------------------------
+
+"""Str1 = "0101010101010101010101410101010101010"
+
+status = all(c in '01' for c in Str1)
+
+print(status)
+"""
+
+#----------------------------------------Using set functions ----------------------------------------------
+
+"""Str1 = "0101010101010101010101410101010101010"
+
+set1  = set(Str1)
+
+status = set1.issubset({'1','0'})
+
+print(status)
+"""
+
+##----------------------------------------Uncommon Words -----------------------------------------------------
+
+"""A = "Geeks for Geeks"
+B = "Learning from Geeks for Geeks"
+
+A = A.split()
+B = B.split()
+
+for word in B:
+    if word in A:
+        pass
+    else:
+        print(word)
+"""
+"""
+from collections import Counter
+
+list1 = ['a','b','c','d','e','f']
+list2 = ['a','b','c','d','e','g']
 
 
+Coun1  = Counter(list1)
+Coun2  = Counter(list2)
 
+Coun3 = Coun2+Coun1
+
+print(Coun3)
+
+"""
 
 
 
