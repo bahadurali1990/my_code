@@ -36,4 +36,19 @@ axes[1].plot(X,y)
 
 plt.show()
 
+##--------------------------------------Decision Tree with different Depth-----------------------------------
+
+from sklearn.tree import DecisionTreeRegressor
+
+tree1 = DecisionTreeRegressor(max_depth=2)
+tree2 = DecisionTreeRegressor(max_depth=5)
+
+tree1.fit(X,y)
+tree2.fit(X,y)
+
+
+
+
+
+
 
