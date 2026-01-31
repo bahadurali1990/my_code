@@ -101,7 +101,7 @@ plt.scatter(y_3[:,0],y_3[:,1],s=25,c="green",edgecolors="black")
 plt.show()
 """
 
-from sklearn.datasets import load_iris
+"""from sklearn.datasets import load_iris
 from sklearn.inspection import DecisionBoundaryDisplay
 from sklearn.tree import DecisionTreeClassifier
 
@@ -147,6 +147,52 @@ model.fit(X,y)
 plot_tree(model)
 
 plt.show()
+
+"""
+##--------------------------------------------Demonstration of PCA on Iris Dataset -----------------------
+
+from sklearn.datasets import load_iris
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+iris = load_iris(as_frame=True)
+data = pd.DataFrame(iris.data)
+data['target'] = iris.target
+##sns.pairplot(data,hue='target')
+##plt.show()
+
+##--------------------------------------Plot a PCA represenation --------------------------------------------
+
+import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d
+
+from sklearn.decomposition import PCA
+
+fig = plt.figure(1,figsize=(10,5))
+ax = fig.add_subplot(111,projection="3d")
+
+X_reduced = PCA(n_components=3).fit_transform(iris.data)
+
+scatter = ax.scatter(
+    X_reduced[:,0],
+    X_reduced[:,1],
+    X_reduced[:,2],
+    c=iris.target,
+    s=40
+)
+
+plt.show()
+
+
+
+
+
+
+
+
+
+
 
 
 
