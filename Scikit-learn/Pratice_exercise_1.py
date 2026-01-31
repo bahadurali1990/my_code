@@ -20,6 +20,7 @@ print(X_new)
 
 import matplotlib.pyplot as plt
 import numpy as np
+from sympy.printing.pretty.pretty_symbology import line_width
 
 rng = np.random.RandomState(42)
 
@@ -50,6 +51,18 @@ X_test = np.arange(0,5.0,0.01)[:,np.newaxis]
 
 y_1 = tree1.predict(X_test)
 y_2 = tree2.predict(X_test)
+
+
+##--------------------------------------- Plot the result ----------------------------------------------------
+
+plt.figure()
+plt.scatter(X,y,s=20,edgecolors='black',label='data')
+plt.plot(X_test,y_1,linewidth=2)
+plt.plot(X_test,y_2,linewidth=2)
+plt.legend()
+plt.show()
+
+
 
 
 
