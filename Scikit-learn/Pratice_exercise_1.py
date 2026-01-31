@@ -98,7 +98,7 @@ plt.scatter(y_1[:,0],y_1[:,1],s=25,c="blue",edgecolors="black")
 plt.scatter(y_2[:,0],y_2[:,1],s=25,c="black",edgecolors="red")
 plt.scatter(y_3[:,0],y_3[:,1],s=25,c="green",edgecolors="black")
 
-plt.show()
+plt.show(
 
 
 
