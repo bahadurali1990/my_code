@@ -67,7 +67,7 @@ plt.show()
 
 ##-------------------------------Decision Tree for Multi-class Regresser-------------------------------------
 
-from sklearn.tree  import DecisionTreeRegressor
+"""from sklearn.tree  import DecisionTreeRegressor
 import matplotlib.pyplot as plt
 import numpy as np
 rng = np.random.RandomState(10)
@@ -98,7 +98,64 @@ plt.scatter(y_1[:,0],y_1[:,1],s=25,c="blue",edgecolors="black")
 plt.scatter(y_2[:,0],y_2[:,1],s=25,c="black",edgecolors="red")
 plt.scatter(y_3[:,0],y_3[:,1],s=25,c="green",edgecolors="black")
 
-plt.show(
+plt.show()
+"""
+
+from sklearn.datasets import load_iris
+from sklearn.inspection import DecisionBoundaryDisplay
+from sklearn.tree import DecisionTreeClassifier
+
+from sklearn.tree import plot_tree
+import matplotlib.pyplot as plt
+
+import numpy as np
+
+n_classes = 3
+plot_colors = "ryb"
+plot_step = 0.02
+
+iris = load_iris()
+
+for pairidx, pair in enumerate([[0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]]):
+    X = iris.data[:,pair]
+    y = iris.target
+
+    model = DecisionTreeClassifier()
+    model.fit(X,y)
+
+    ax = plt.subplot(2,3,pairidx+1)
+    DecisionBoundaryDisplay.from_estimator(
+        model,
+        X,
+        cmap=plt.cm.RdYlBu,
+        response_method="predict",
+        ax=ax,
+        xlabel=iris.feature_names[pair[0]],
+        ylabel=iris.feature_names[pair[1]]
+    )
+
+    # plot the training point
+
+
+
+
+
+
+plt.show()
+model = DecisionTreeClassifier()
+model.fit(X,y)
+plot_tree(model)
+
+plt.show()
+
+
+
+
+
+
+
+
+
 
 
 
