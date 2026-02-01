@@ -194,6 +194,7 @@ status = all(c in '01' for c in Str1)
 print(status)
 """
 
+
 #----------------------------------------Using set functions ----------------------------------------------
 
 """Str1 = "0101010101010101010101410101010101010"
@@ -233,6 +234,26 @@ Coun3 = Coun2+Coun1
 
 print(Coun3)
 
+"""
+
+## -----------------------------------------------OrderedDict-------------------------------------------------
+
+"""
+from collections import OrderedDict
+Dict1 = OrderedDict({"c":1,"d":2})
+Dict1.update({"e":3})
+Dict1.move_to_end("e",last=False)
+print(Dict1)
+
+"""
+
+"""from collections import OrderedDict
+
+Dict1 = OrderedDict({"A":2,"B":3,"C":3,"D":4})
+
+Dict1.update({"C":4,**Dict1})
+
+print(Dict1)
 """
 
 
