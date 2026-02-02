@@ -15,6 +15,15 @@ These findings turn the pipeline from a black-box predictor into a decision-supp
 
 """
 
+from Preprocessor import preprocess_employee_data
+
+file_path = "//Users//ahad//Employee_attr_dataset//Employee_datasets.csv"
+
+dtrain, dtest, X_train, X_test, y_train, y_test = preprocess_employee_data(file_path)
+
+print(X_train.head())
+
+
 
 
 
