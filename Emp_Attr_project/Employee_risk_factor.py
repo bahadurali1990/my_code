@@ -9,7 +9,7 @@
 
 """
 
-In short: You can present feature importance, risk segmentation, department-level trends,
+In short: we can present feature importance, risk segmentation, department-level trends,
 tenure/salary effects, predictive metrics, and simulations.
 These findings turn the pipeline from a black-box predictor into a decision-support tool for HR
 
