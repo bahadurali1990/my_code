@@ -21,7 +21,9 @@ file_path = "//Users//ahad//Employee_attr_dataset//Employee_datasets.csv"
 
 dtrain, dtest, X_train, X_test, y_train, y_test = preprocess_employee_data(file_path)
 
-print(X_train.head())
+print(X_train.head().to_string())
+print(y_train.head(100))
+
 
 
 
