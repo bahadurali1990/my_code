@@ -50,8 +50,8 @@ def preprocess_employee_data(file_path, test_size=0.2, random_state=42):
     )
 
     # 6. Convert to DMatrix
-    dtrain = xgb.DMatrix(X_train, label=y_train)
-    dtest = xgb.DMatrix(X_test, label=y_test)
+    dtrain = xgb.DMatrix(X_train, label=y_train,feature_names=list(X_train.columns))
+    dtest = xgb.DMatrix(X_test, label=y_test,feature_names=list(X_test.columns))
 
     print("Preprocessing complete. Ready for XGBoost training!")
 

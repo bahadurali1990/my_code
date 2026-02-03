@@ -1,7 +1,7 @@
 import xgboost as xgb
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
 import matplotlib.pyplot as plt
-from xgboost import plot_importance
+
 
 
 def train_xgboost_model(dtrain, dtest, y_test, num_boost_round=200):
@@ -58,7 +58,6 @@ def train_xgboost_model(dtrain, dtest, y_test, num_boost_round=200):
     print("ROC-AUC:", roc_auc_score(y_test, y_pred_prob))
 
     # Feature Importance
-    plot_importance(model, importance_type='gain')
-    plt.show()
+
 
     return model, y_pred, y_pred_prob
