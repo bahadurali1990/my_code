@@ -16,6 +16,8 @@ print(B_Shape)
 C=A+B
 print(C)
 """
+import numpy as np
+
 #-------------------------------------------------------Polynomial-------------------------------------------
 """
 import numpy as np
@@ -47,6 +49,20 @@ print(A.ndim)
 print(A.shape)
 """
 
-#
+# ---------------------------------------------- Size of Numpy Array ----------------------------------------
+
+
+B = np.array([
+              [4,5],
+              [6,7],
+              [7,7]
+              ]
+             )
+
+print(B.size)
+
+Size_1 = np.size(B,axis=0)
+
+print(Size_1)
 
 
