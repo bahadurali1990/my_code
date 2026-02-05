@@ -1,4 +1,5 @@
-import nltk
+#------------------------ A simple tokenization with the help of NLTK library-------------------------
+"""import nltk
 
 from nltk import word_tokenize
 from nltk import sent_tokenize
@@ -12,4 +13,6 @@ work_token  = word_tokenize(my_sentence)
 
 print(sen_tokens)
 print(work_token)
+"""
 
+#-------------------------
