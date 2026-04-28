@@ -1,0 +1,106 @@
+# Full Characters based tokenization
+
+class chars_tokenization:
+
+    def __init__(self,text : str):
+
+        self.vocab = sorted(set(text))
+
+        self.char2id = {ch:id for id,ch in enumerate(self.vocab)}
+
+        self.id2char = {id:ch for id,ch in enumerate(self.vocab)}
+
+    def show_vocab(self):
+
+        print(self.vocab)
+
+        print(self.char2id)
+        
+        print(self.id2char)
+
+    
+    def tokenize(self,input):
+        
+        token_list = [ self.char2id[ch] for ch in input if  ch in self.vocab]
+
+        return token_list
+
+    def detokenize(self,input):
+
+        character_list = [self.id2char[idx] for idx in input]
+
+        return character_list
+
+text = "The quick brown fox jumps over the lazy dog"
+
+my_tokenizers = chars_tokenization(text)
+
+my_tokenizers.show_vocab()
+
+input = 'Char'
+
+output = my_tokenizers.tokenize(input)
+
+print(output)
+-----------
+
+Tokenization Technique :
+
+Tokenization is the process of breaking down text into smaller units (tokens).
+
+Why we should learn Tokenization in details.
+
+Tokens in LLMs
+
+
+* Revenue & Cost
+
+    * LLM providers charge based on tokens processed (input + output).
+    * More tokens = higher cost.
+
+* Input Format
+
+    * All LLMs convert text into tokens before processing.
+    * Tokens are the fundamental building blocks for model understanding.
+
+* Applications (like RAG)
+
+    * Retrieval-Augmented Generation (RAG) and other LLM-based apps rely on tokens.
+    * Token count determines how much context fits into the model’s window.
+    * Efficient tokenization = more meaningful content packed into the same context size.
+
+
+Main Type of tokenization Techniques.
+
+1-  Characters Tokenizations.
+
+	Cons :
+
+		Losses of semantic meaning.
+		Longer sequences.
+	
+	Pros:
+ 
+               Small vocab.
+		no issue with the out of vocab problem.
+			
+
+	Application :
+		
+              It is still used in some languages  like Chinese and Japanese
+	      It is still used in research may be we can see in future. 			
+
+
+
+
+2-  Word Tokenizations
+
+3-  Subwords Tokenization.
+
+Characters Tokenizations Technique.
+
+
+
+
+
+
