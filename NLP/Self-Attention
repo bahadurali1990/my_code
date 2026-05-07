@@ -1,0 +1,45 @@
+import numpy as np
+
+
+def softmax(x):
+    e_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
+    return e_x / e_x.sum(axis=-1, keepdims=True)
+
+
+def self_attention(X):
+    """ 
+    X: input sequence of shape (seq_len, d_model)
+    """
+    seq_len, d_model = X.shape
+
+    # Fixed transformations (no learning parameters)
+    W_Q = np.eye(d_model)  # identity
+    W_K = np.eye(d_model)  # identity
+    W_V = np.eye(d_model)  # identity
+
+    # Compute queries, keys, values
+    Q = X @ W_Q
+    K = X @ W_K
+    V = X @ W_V
+
+    # Attention scores
+    scores = Q @ K.T / np.sqrt(d_model)
+
+    # Softmax to get attention weights
+    weights = softmax(scores)
+
+    # Weighted sum of values
+    output = weights @ V
+
+    return output, weights
+
+
+# Example usage
+X = np.array([[1, 0, 1],
+              [0, 2, 0],
+              [1, 1, 0]], dtype=float)
+
+output, weights = self_attention(X)
+
+print("Attention Weights:\n", weights)
+print("Output:\n", output)
