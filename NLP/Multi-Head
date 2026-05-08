@@ -1,0 +1,79 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import Dataset, DataLoader
+
+# 1. Example dataset
+class TextDataset(Dataset):
+    def __init__(self, sentences, vocab, max_len=10):
+        self.sentences = sentences
+        self.vocab = vocab
+        self.max_len = max_len
+
+    def encode(self, sentence):
+        tokens = sentence.lower().split()
+        ids = [self.vocab.get(tok, self.vocab["<unk>"]) for tok in tokens]
+        # pad/truncate
+        ids = ids[:self.max_len] + [self.vocab["<pad>"]] * (self.max_len - len(ids))
+        return torch.tensor(ids)
+
+    def __len__(self):
+        return len(self.sentences)
+
+    def __getitem__(self, idx):
+        return self.encode(self.sentences[idx])
+
+# 2. Attention module
+class SelfAttention(nn.Module):
+    def __init__(self, d_model, n_heads):
+        super(SelfAttention, self).__init__()
+        assert d_model % n_heads == 0
+        self.d_model = d_model
+        self.n_heads = n_heads
+        self.d_k = d_model // n_heads
+
+        self.W_Q = nn.Linear(d_model, d_model)
+        self.W_K = nn.Linear(d_model, d_model)
+        self.W_V = nn.Linear(d_model, d_model)
+        self.W_O = nn.Linear(d_model, d_model)
+
+    def forward(self, x, mask=None):
+        batch_size, seq_len, _ = x.size()
+        Q = self.W_Q(x).view(batch_size, seq_len, self.n_heads, self.d_k).transpose(1,2)
+        K = self.W_K(x).view(batch_size, seq_len, self.n_heads, self.d_k).transpose(1,2)
+        V = self.W_V(x).view(batch_size, seq_len, self.n_heads, self.d_k).transpose(1,2)
+
+        scores = torch.matmul(Q, K.transpose(-2,-1)) / torch.sqrt(torch.tensor(self.d_k, dtype=torch.float32))
+        if mask is not None:
+            scores = scores.masked_fill(mask==0, -1e9)
+
+        attn_weights = F.softmax(scores, dim=-1)
+        context = torch.matmul(attn_weights, V)
+
+        context = context.transpose(1,2).contiguous().view(batch_size, seq_len, self.d_model)
+        return self.W_O(context), attn_weights
+
+# 3. Putting it together
+class AttentionModel(nn.Module):
+    def __init__(self, vocab_size, d_model=32, n_heads=4):
+        super(AttentionModel, self).__init__()
+        self.embedding = nn.Embedding(vocab_size, d_model)
+        self.attention = SelfAttention(d_model, n_heads)
+
+    def forward(self, x):
+        emb = self.embedding(x)  # [batch, seq_len, d_model]
+        context, weights = self.attention(emb)
+        return context, weights
+
+# Example run
+sentences = ["The cat sat on the mat", "Dogs bark loudly"]
+vocab = {"<pad>":0, "<unk>":1, "the":2, "cat":3, "sat":4, "on":5, "mat":6, "dogs":7, "bark":8, "loudly":9}
+dataset = TextDataset(sentences, vocab)
+loader = DataLoader(dataset, batch_size=2, shuffle=False)
+
+model = AttentionModel(vocab_size=len(vocab))
+
+for batch in loader:
+    context, weights = model(batch)
+    print("Contextual embeddings shape:", context.shape)
+    print("Attention weights shape:", weights.shape)
